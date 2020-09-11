@@ -76,6 +76,7 @@ ul .list-item {
   cursor: pointer;
   position: relative;
   text-align: left;
+  list-style-type: none;
   padding: 15px 10px 15px 50px;
   background: var(--primary-color);
   font-size: 16px;
@@ -94,17 +95,27 @@ ul .list-item:last-child {
 }
 
 ul .list-item:hover {
-  background: red;
-  color: #fff;
-  z-index: -1;
+  opacity: 0.8;
 }
 
-ul .checked {
+ul .list-item .checked {
   background-color: blue;
   color: red;
   text-decoration: line-through;
 }
 
+ul .list-item .checked:before {
+  content: '';
+  position: absolute;
+  border-color: var(--light-color);
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
 /*Style Delete Button*/
 .delete {
   position: absolute;

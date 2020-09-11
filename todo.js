@@ -35,31 +35,30 @@ list.addEventListener(
   false
 );
 
-function addNewElement(){
-  let li = document.createElement("li");
-  let inputElement = document.getElementById("inputContent").value;
+function addNewElement() {
+  let li = document.createElement('li');
+  let inputElement = document.getElementById('inputContent').value;
   let tn = document.createTextNode(inputElement);
 
   li.appendChild(tn);
-  if(inputElement===""){
-    alert("You must enter something");
-  } else{
-    document.getElementById("uList").appendChild(li);
+  if (inputElement === '') {
+    alert('You must enter something');
+  } else {
+    document.getElementById('uList').appendChild(li);
   }
-  document.getElementById("inputContent").value="";
+  document.getElementById('inputContent').value = '';
 
+  let span = document.createElement('span');
+  let text = document.createTextNode('\u00D7');
 
-let span = document.createElement("span");
-let text = document.createTextNode("\u00D7");
+  span.className('delete');
+  span.appendChild(text);
+  li.appendChild(span);
 
-span.className("delete");
-span.appendChild(text);
-li.appendChild(span);
-
-for(let i=0; i<delete.length; i++){
-  delete[i].onclick = function(){
-    let div = this.parentElement;
-    div.style.display = "none";
+  for (let i = 0; i < deleteBtn.length; i++) {
+    deleteBtn[i].onclick = function () {
+      let div = this.parentElement;
+      div.style.display = 'none';
+    };
   }
-}
 }
