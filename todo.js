@@ -25,10 +25,7 @@ let list = document.querySelector('ul');
 list.addEventListener(
   'click',
   function (event) {
-    if (
-      event.target.className === 'list-item' ||
-      event.target.tagName === 'LI'
-    ) {
+    if (event.target.tagName === 'LI') {
       event.target.classList.toggle('checked');
     }
   },
@@ -41,6 +38,7 @@ function addNewElement() {
   let tn = document.createTextNode(inputElement);
 
   li.appendChild(tn);
+
   if (inputElement === '') {
     alert('You must enter something');
   } else {
@@ -51,7 +49,7 @@ function addNewElement() {
   let span = document.createElement('span');
   let text = document.createTextNode('\u00D7');
 
-  span.className('delete');
+  span.className = 'delete';
   span.appendChild(text);
   li.appendChild(span);
 

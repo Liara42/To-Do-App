@@ -54,7 +54,7 @@ body::before {
   padding-bottom: 75px;
 }
 
-#input {
+#inputContent {
   border-radius: 5px;
   border: none;
   width: 70%;
@@ -64,7 +64,7 @@ body::before {
   background-color: var(--light-color);
 }
 
-#input:focus {
+#inputContent:focus {
   outline: none;
 }
 
@@ -94,7 +94,7 @@ ul {
   margin-top: 100px;
 }
 
-ul .list-item {
+ul li {
   cursor: pointer;
   position: relative;
   text-align: left;
@@ -112,24 +112,29 @@ ul .list-item {
   user-select: none;
 }
 
-ul .list-item:last-child {
+ul li:last-child {
   border-radius: 0 0 10px 10px;
 }
 
-ul .list-item:hover {
+ul li:hover {
   opacity: 0.8;
 }
 
-ul .list-item .checked {
-  background-color: blue;
-  color: red;
+ul li.checked {
+  background-color: var(--secondary-color);
+  color: var(--dark-color);
   text-decoration: line-through;
+  border-bottom: solid 0.5px var(--dark-color);
 }
 
-ul .list-item .checked:before {
+ul li.checked span {
+  color: var(--primary-color);
+}
+
+ul li.checked:before {
   content: '';
   position: absolute;
-  border-color: var(--light-color);
+  border-color: var(--dark-color);
   border-style: solid;
   border-width: 0 2px 2px 0;
   top: 10px;
