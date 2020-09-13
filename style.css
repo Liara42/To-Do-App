@@ -14,7 +14,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  font-size: 20px;
+  font-size: 2rem;
 }
 
 body::before {
@@ -32,7 +32,7 @@ body::before {
 
 .container {
   max-width: 30vw;
-  max-height: 90vh;
+  max-height: 80vh;
 
   background-color: var(--dark-color);
   margin: 50px auto;
@@ -44,7 +44,7 @@ body::before {
 }
 
 .list h2 {
-  padding-top: 50px;
+  padding-top: 6.5rem;
   color: var(--light-color);
 }
 
@@ -58,9 +58,11 @@ body::before {
   border-radius: 5px;
   border: none;
   width: 70%;
-  height: 2rem;
+  height: 2.5rem;
+  font-size: 1.3rem;
+  
   margin-left: 19px;
-  padding-left: 5px;
+  padding-left: 1.2rem;
   background-color: var(--light-color);
 }
 
@@ -69,39 +71,74 @@ body::before {
 }
 
 .add-btn {
-  width: 5%;
-  height: 2rem;
-  margin-left: 15px;
-  margin-right: 5px;
-  padding: 2.5px 5px;
-  text-align: center;
-  font-size: 16px;
+  background: var(--primary-color);
+  height: 3rem;
+  min-width: 40%;
+  border: none;
+  border-radius: 10px;
+  color: var(--secondary-color);
+  font-size: 1.7rem;
+  position: relative;
+  transition: 1s;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  transition: 0.3s;
-  border-radius: 3px;
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
+  padding-top: 10px;
+  margin-top: 1.5rem;
+  margin-left: 9rem;
+  margin-right: 9rem;
 }
 
+.add-btn #circle {
+  width: 5px;
+  height: 5px;
+  background: transparent;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  overflow: hidden;
+  transition: 500ms;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+    -webkit-user-select: none;
+     -khtml-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
 .add-btn:hover {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  background: transparent;
+}
+
+.add-btn:hover #circle {
+  height: 100%;
+  width: 100%;
+  left: 0;
+  border-radius: 0 0 10px 10px;
+  border-bottom: 2px solid var(--light-color);
 }
 
 ul {
   display: block;
   list-style: none;
   margin-top: 100px;
+
 }
 
 ul li {
+  height: 4rem;
   cursor: pointer;
   position: relative;
   text-align: left;
   list-style-type: none;
   padding: 15px 10px 15px 50px;
   background: var(--primary-color);
-  font-size: 16px;
+  font-size: 1.3rem;
   color: var(--secondary-color);
   border-bottom: dotted 1px var(--light-color);
 
