@@ -32,6 +32,7 @@ list.addEventListener(
   false
 );
 
+// Starting with Persistence
 function addNewElement() {
   let li = document.createElement('li');
   let inputElement = document.getElementById('inputContent').value;
@@ -58,5 +59,84 @@ function addNewElement() {
       let div = this.parentElement;
       div.style.display = 'none';
     };
+  }
+}
+
+export default class Likes {
+  constructor() {
+    this.likes = [];
+  }
+
+  addLike(id, title, author, img) {
+    const like = { id, title, author, img };
+    this.likes.push(like);
+
+    //Persist data in localStorage
+    this.persistData();
+
+    return like;
+  }
+  deleteLike(id) {
+    const index = this.likes.findIndex((el) => el.id === id);
+    this.likes.splice(index, 1);
+
+    //Persist data in localStorage
+    this.persistData();
+  }
+  isLiked(id) {
+    return this.likes.findIndex((el) => el.id === id) !== -1;
+  }
+  getNumLikes() {
+    return this.likes.length;
+  }
+  persistData() {
+    localStorage.setItem('likes', JSON.stringify(this.likes));
+  }
+
+  readStorage() {
+    const storage = JSON.parse(localStorage.getItem('likes'));
+
+    //Restoring likes from localStorage
+    if (storage) this.likes = storage;
+  }
+}
+
+// Another example of Persistence
+//It needs to be modified
+import uniqid from 'uniqid';
+
+export default class List {
+  constructor() {
+    this.items = [];
+  }
+
+  addItem(count, unit, ingredient) {
+    const item = {
+      id: uniqid(),
+      count,
+      unit,
+      ingredient,
+    };
+    this.items.push(item);
+    this.persistDataList();
+    return item;
+  }
+  deleteItem(id) {
+    const index = this.items.findIndex((el) => el.id === id);
+    this.items.splice(index, 1);
+    this.persistDataList();
+  }
+  updateCount(id, newCount) {
+    this.items.find((el) => el.id === id).count === newCount;
+  }
+  persistDataList() {
+    localStorage.setItem('list', JSON.stringify(this.items));
+  }
+
+  readStorageList() {
+    const storage = JSON.parse(localStorage.getItem('list'));
+
+    //Restoring likes from localStorage
+    if (storage) this.list = storage;
   }
 }
