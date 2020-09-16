@@ -180,5 +180,64 @@ export const updateServingsIngredients = (recipe) => {
     el.textContent = formatCount(recipe.ingredients[i].count);
   });
 };
+// What to do with this code
+const controlList = () => {
+  //Create new list if there is none yet
+  if (!state.list) state.list = new List();
+  //Add each ingredient to list and ui
+  state.recipe.ingredients.forEach((el) => {
+    const item = state.list.addItem(el.count, el.unit, el.ingredient);
+    listView.renderItem(item);
+  });
+  listView.createButton();
+};
+
+// Load and Restore Page
+window.addEventListener('load', () => {
+  state.likes = new Likes();
+  state.list = new List();
+  //restore likes and list
+  state.likes.readStorage();
+  state.list.readStorageList();
+  //toggle like menu button
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
+  //render existing likes and shopping list
+  state.likes.likes.forEach((like) => likesView.renderLike(like));
+  state.list.list.forEach((list) => listView.renderItem(list));
+
+  // Add delete shopping list button when loading page
+});
+
+//Control Like
+const controlLike = () => {
+  if (!state.likes) state.likes = new Likes();
+  const currentID = state.recipe.id;
+
+  //user has not yet liked current recipe
+  if (!state.likes.isLiked(currentID)) {
+    //add like to the state
+    const newLike = state.likes.addLike(
+      currentID,
+      state.recipe.title,
+      state.recipe.author,
+      state.recipe.img
+    );
+
+    //toggle like button
+    likesView.toggleLikeBtn(true);
+    //add like to ui list
+    likesView.renderLike(newLike);
+    //user has liked current recipe
+  } else {
+    //remove like from state
+    state.likes.deleteLike(currentID);
+    //toggle like button
+    likesView.toggleLikeBtn(false);
+    //remove like from ui list
+
+    likesView.deleteLike(currentID);
+  }
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
+};
 
 //  Add the rest of the JS
