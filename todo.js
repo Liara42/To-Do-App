@@ -54,3 +54,30 @@ let deleteItem = function(item){
   //Persist data in localStorage
   this.persistData();
 }
+
+//Read Data from Storage
+let readStorage = function() {
+  const storage = JSON.parse(localStorage.getItem('likes'));
+
+  //Restoring likes from localStorage
+  if (storage) this.likes = storage;
+}
+
+export const deleteLike = (id) => {
+  const el = document.querySelector(`.likes__link[href*="${id}"]`)
+    .parentElement;
+  if (el) el.parentElement.removeChild(el);
+};
+
+//Restore liked recipes and shopping list on page load
+window.addEventListener('load', () => {
+  state.likes = new Likes();
+  state.list = new List();
+  //restore likes and list
+  state.likes.readStorage();
+  state.list.readStorageList();
+  //toggle like menu button
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
+  //render existing likes and shopping list
+  state.likes.likes.forEach((like) => likesView.renderLike(like));
+  state.list.list.forEach((list) => listView.renderItem(list));
