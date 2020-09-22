@@ -81,3 +81,26 @@ window.addEventListener('load', () => {
   //render existing likes and shopping list
   state.likes.likes.forEach((like) => likesView.renderLike(like));
   state.list.list.forEach((list) => listView.renderItem(list));
+
+
+  //Handling recipe button clicks
+elements.recipe.addEventListener('click', (e) => {
+  if (e.target.matches('.btn-decrease, .btn-decrease *')) {
+    //Decrease button is clicked
+    if (state.recipe.servings > 1) {
+      state.recipe.updateServings('dec');
+      recipeView.updateServingsIngredients(state.recipe);
+    }
+  } else if (e.target.matches('.btn-increase, .btn-increase *')) {
+    //Increase button is clicked
+    state.recipe.updateServings('inc');
+    recipeView.updateServingsIngredients(state.recipe);
+  } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+    //add ingredients to shopping list
+    controlList();
+  } else if (e.target.matches('.recipe__love, .recipe__love *')) {
+    //like controller
+    controlLike();
+  }
+});
+})
