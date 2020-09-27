@@ -60,7 +60,6 @@ function renderList(list){
 }
 
 //Adding new element
-
 function addNewElement() {
   let inputElement = document.getElementById('inputContent').value;
 
@@ -75,7 +74,6 @@ function addNewElement() {
   }
 
 //Delete element
-
 function deleteElement() {
   let deleteBtn = document.getElementsByClassName('delete');
 
@@ -91,7 +89,6 @@ function deleteElement() {
 }
 
 //Add checked to list item
-
 function checkedElement() {
   let checkElement = document.getElementsByTagName("li");
 
@@ -116,7 +113,6 @@ window.addEventListener('load', (event) => {
   if(localStorage.getItem('items')!== null){
     list.listItems = JSON.parse(localStorage.getItem('items'));
   }
-
-  //Render Page
+  //Render List
   renderList(list.listItems);
 });
