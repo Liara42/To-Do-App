@@ -1,6 +1,8 @@
+//Model
 class ToDo{
   constructor(items=[]){
     this.listItems = items;
+    this.check = [];
   }
 
   //Add new list item
@@ -10,9 +12,15 @@ class ToDo{
   }
 
   //Delete list item
-  deleteItem(count){
-    this.listItems.splice(count, 1);
-    return this.listItems;
+  deleteItem(randList, count){
+    randList.splice(count, 1);
+    return randList;
+  }
+
+  //Check list item
+  checkItem(index){
+    this.check[index] = this.check[index]? 0 : 1;
+    return this.check; 
   }
 }
 
@@ -22,6 +30,10 @@ let taskList = ["Pay Bills", "Hit the Gym", "Read the Book"];
 let list = new ToDo(taskList);
 renderList(taskList);
 
+//Persist Data
+persistItems();
+
+console.log(list.listItems,list.check);
 //Render list
 function renderList(inputText){
   let myNode = document.getElementById("uList");
@@ -42,6 +54,7 @@ function renderList(inputText){
     li.appendChild(span);
   }
   deleteElement();
+  checkedElement();
 }
 
 //Adding new element
@@ -54,6 +67,8 @@ function addNewElement() {
   } else {
     list.addNewItem(inputElement);
     renderList(list.listItems);
+    //Persist Data
+    persistItems();
     }
   }
 
@@ -63,20 +78,66 @@ function deleteElement() {
   let deleteBtn = document.getElementsByClassName('delete');
 
   for (let i = 0; i < deleteBtn.length; i++) {
-    deleteBtn[i].onclick = function () {
-      list.deleteItem(i);
+    deleteBtn[i].addEventListener("click", function(event){
+      event.stopPropagation();
+      list.deleteItem(list.listItems, i);
+      list.deleteItem(list.check, i);
       renderList(list.listItems);
-    };
+      renderChecked();
+      //Persist Data
+      persistItems();
+      persistChecks();
+    });
   }
 }
 
 //Add checked to list item
-let checkList = document.querySelector('ul');
-checkList.addEventListener(
-  'click',
-  function (event) {
-    if (event.target.tagName === 'LI') {
-      event.target.classList.toggle('checked');
+
+function checkedElement() {
+  let checkElement = document.getElementsByTagName("li");
+
+  for (let i = 0; i < checkElement.length; i++) {
+    checkElement[i].onclick = function () {
+      list.checkItem(i);
+      renderChecked();
+      //Persist Data
+      persistChecks();
+    };
+  }
+}
+
+//Render checked list
+
+function renderChecked() {
+  let checkEl = document.getElementsByTagName("li");
+  for (let j = 0; j < checkEl.length; j++) {
+    if(list.check[j]===1){
+      checkEl[j].classList.remove("checked");
+      checkEl[j].classList.add("checked");
+    } else{
+      list.check[j]=0;
+      checkEl[j].classList.remove("checked");
     }
   }
-);
+}
+
+//Persist Data
+
+function persistItems(){
+  localStorage.setItem("items", JSON.stringify(list.listItems));
+}
+
+function persistChecks(){
+  localStorage.setItem("checks", JSON.stringify(list.check));
+}
+
+//Get Persisted Data on Page Load
+window.addEventListener('load', (event) => {
+  //Get Data
+  list.listItems = JSON.parse(localStorage.getItem('items'));
+  list.check = JSON.parse(localStorage.getItem('checks'));
+
+  //Render Page
+  renderList(list.listItems);
+  renderChecked();
+});
