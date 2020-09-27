@@ -50,6 +50,10 @@ function renderList(list){
     span.className = 'delete';
     span.appendChild(text);
     li.appendChild(span);
+
+    if(list[i].check===1){
+      li.classList.add("checked");
+    }
   }
   deleteElement();
   checkedElement();
@@ -65,7 +69,6 @@ function addNewElement() {
   } else {
     list.addNewItem(inputElement);
     renderList(list.listItems);
-    renderChecked();
     //Persist Data
     persistItems();
     }
@@ -81,7 +84,6 @@ function deleteElement() {
       event.stopPropagation();
       list.deleteItem(i);
       renderList(list.listItems);
-      renderChecked();
       //Persist Data
       persistItems();
     });
@@ -96,24 +98,10 @@ function checkedElement() {
   for (let i = 0; i < checkElement.length; i++) {
     checkElement[i].onclick = function () {
       list.checkItem(i);
-      renderChecked();
+      renderList(list.listItems);
       //Persist Data
       persistItems();
     };
-  }
-}
-
-//Render checked list
-function renderChecked() {
-  let checkEl = document.getElementsByTagName("li");
-  for (let j = 0; j < checkEl.length; j++) {
-    if(list.listItems[j].check===1){
-      checkEl[j].classList.remove("checked");
-      checkEl[j].classList.add("checked");
-    } else{
-      list.listItems[j].check = 0;
-      checkEl[j].classList.remove("checked");
-    }
   }
 }
 
@@ -131,5 +119,4 @@ window.addEventListener('load', (event) => {
 
   //Render Page
   renderList(list.listItems);
-  renderChecked();
 });
