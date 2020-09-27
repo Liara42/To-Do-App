@@ -1,50 +1,48 @@
+/*TO DO ITEM = {name: string, check: boolean}*/
 //Model
 class ToDo{
   constructor(items=[]){
     this.listItems = items;
-    this.check = [];
   }
 
   //Add new list item
-  addNewItem(item){
-    this.listItems.push(item);
+  addNewItem(nameStr){
+    let listItem = {
+      name: nameStr,
+      check: 0
+    };
+
+    this.listItems.push(listItem);
     return this.listItems;
   }
 
   //Delete list item
-  deleteItem(randList, count){
-    randList.splice(count, 1);
-    return randList;
+  deleteItem(count){
+    this.listItems.splice(count, 1);
+    return this.listItems;
   }
 
   //Check list item
   checkItem(index){
-    this.check[index] = this.check[index]? 0 : 1;
-    return this.check; 
+    this.listItems[index].check = this.listItems[index].check ? 0 : 1;
+    return this.listItems; 
   }
 }
 
 //UI handling
-let taskList = ["Pay Bills", "Hit the Gym", "Read the Book"];
+let list = new ToDo();
 
-let list = new ToDo(taskList);
-renderList(taskList);
-
-//Persist Data
-persistItems();
-
-console.log(list.listItems,list.check);
 //Render list
-function renderList(inputText){
+function renderList(list){
   let myNode = document.getElementById("uList");
   myNode.innerHTML = '';
 
-  for(let i = 0; i < inputText.length; i++){
+  for(let i = 0; i < list.length; i++){
     let li = document.createElement('li');
     let span = document.createElement('span');
     let text = document.createTextNode('\u00D7');
    
-    li.appendChild(document.createTextNode(inputText[i]));
+    li.appendChild(document.createTextNode(list[i].name));
   
     document.getElementById('uList').appendChild(li);
     document.getElementById('inputContent').value = '';
@@ -67,6 +65,7 @@ function addNewElement() {
   } else {
     list.addNewItem(inputElement);
     renderList(list.listItems);
+    renderChecked();
     //Persist Data
     persistItems();
     }
@@ -80,13 +79,11 @@ function deleteElement() {
   for (let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener("click", function(event){
       event.stopPropagation();
-      list.deleteItem(list.listItems, i);
-      list.deleteItem(list.check, i);
+      list.deleteItem(i);
       renderList(list.listItems);
       renderChecked();
       //Persist Data
       persistItems();
-      persistChecks();
     });
   }
 }
@@ -101,41 +98,36 @@ function checkedElement() {
       list.checkItem(i);
       renderChecked();
       //Persist Data
-      persistChecks();
+      persistItems();
     };
   }
 }
 
 //Render checked list
-
 function renderChecked() {
   let checkEl = document.getElementsByTagName("li");
   for (let j = 0; j < checkEl.length; j++) {
-    if(list.check[j]===1){
+    if(list.listItems[j].check===1){
       checkEl[j].classList.remove("checked");
       checkEl[j].classList.add("checked");
     } else{
-      list.check[j]=0;
+      list.listItems[j].check = 0;
       checkEl[j].classList.remove("checked");
     }
   }
 }
 
 //Persist Data
-
 function persistItems(){
   localStorage.setItem("items", JSON.stringify(list.listItems));
-}
-
-function persistChecks(){
-  localStorage.setItem("checks", JSON.stringify(list.check));
 }
 
 //Get Persisted Data on Page Load
 window.addEventListener('load', (event) => {
   //Get Data
-  list.listItems = JSON.parse(localStorage.getItem('items'));
-  list.check = JSON.parse(localStorage.getItem('checks'));
+  if(localStorage.getItem('items')!== null){
+    list.listItems = JSON.parse(localStorage.getItem('items'));
+  }
 
   //Render Page
   renderList(list.listItems);
