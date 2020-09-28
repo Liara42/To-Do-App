@@ -73,6 +73,20 @@ function addNewElement() {
     }
   }
 
+//Event Listener for Adding New Element
+function addingListener() {
+  let addBtn = document.getElementById("add-btn");
+  addBtn.addEventListener("click", addNewElement);
+  
+  let input = document.getElementById("inputContent");
+  input.addEventListener("keypress", function(event){
+    if (event.key === "Enter") {
+      event.preventDefault();
+      addNewElement();
+    }
+  });
+}
+
 //Delete element
 function deleteElement() {
   let deleteBtn = document.getElementsByClassName('delete');
@@ -109,10 +123,17 @@ function persistItems(){
 
 //Get Persisted Data on Page Load
 window.addEventListener('load', (event) => {
-  //Get Data
-  if(localStorage.getItem('items')!== null){
-    list.listItems = JSON.parse(localStorage.getItem('items'));
-  }
-  //Render List
-  renderList(list.listItems);
+  setTimeout(function(){
+    //Get Data
+    if(localStorage.getItem('items')!== null){
+      list.listItems = JSON.parse(localStorage.getItem('items'));
+    }
+    //Render List
+    renderList(list.listItems);
+    addingListener();
+    
+    let loader = document.getElementById("loader");
+    loader.style.display = "none"; 
+  }, 2000); 
 });
+
