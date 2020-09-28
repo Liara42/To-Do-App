@@ -13,13 +13,18 @@
           <h2>My To Do App</h2>
           <h4>with Vanilla JS</h4>
           
-          <input type = "text" placeholder="Add New Item" id="inputContent">
-          <div class="add-btn" onclick="addNewElement()">
+          <input type = "text" placeholder="Add New Item" id="inputContent" autofocus>
+          <button class="add-btn" id="add-btn">
           <span id="noselect">Add</span><div id="circle"></div>
-        </div>
-        </div>
-          
-        <ul class="list" id="uList"></ul>
       </div>
+      <ul class="list" id="uList"></ul>
+    
+      <!-- List Loader -->
+      <div class="loader">
+      <div class="lds-roller" id = "loader"><div></div><div></div><div></div><div></div>
+    </div>
+    </div>
+          
+        
   <script src="index.js"></script>
 </html>
