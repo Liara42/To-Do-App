@@ -1,3 +1,4 @@
+/*Define Color Pallete*/
 :root {
   --primary-color: #34312d;
   --secondary-color: #d9c5b2;
@@ -6,17 +7,20 @@
   --light-color: #f3f3f4;
 }
 
+/*Reset default settings*/
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/*Apply font features*/
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 2rem;
 }
 
+/*Add main background and add some features to it*/
 body::before {
   content: '';
   background: url('New_York_Black_White_1920x1080.jpg') no-repeat center
@@ -30,6 +34,7 @@ body::before {
   z-index: -1;
 }
 
+/*Define content container*/
 .container {
   max-width: 30vw;
   max-height: 80vh;
@@ -40,21 +45,25 @@ body::before {
   border-radius: 10px;
 }
 
+/*Align content to the center*/
 .list {
   text-align: center;
 }
 
+/*Style main header*/
 .list h2 {
   padding-top: 6.5rem;
   color: var(--light-color);
 }
 
+/*Style secondary header*/
 .list h4 {
   padding-top: 10px;
   color: var(--secondary-color);
   padding-bottom: 75px;
 }
 
+/*Style input field*/
 #inputContent {
   border-radius: 5px;
   border: none;
@@ -67,10 +76,12 @@ body::before {
   background-color: var(--light-color);
 }
 
+/*Style input field when focused*/
 #inputContent:focus {
   outline: none;
 }
 
+/*Style Add button*/
 .add-btn {
   background: var(--primary-color);
   height: 3rem;
@@ -86,6 +97,7 @@ body::before {
   margin: 2rem auto;
 }
 
+/*Add some extra features styling to the Add button*/
 .add-btn #circle {
   width: 5px;
   height: 5px;
@@ -98,6 +110,7 @@ body::before {
   transition: 500ms;
 }
 
+/*Features for Add button*/
 .noselect {
   -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -106,10 +119,13 @@ body::before {
         -ms-user-select: none;
             user-select: none;
 }
+
+/*Styling for Add button hover effect*/
 .add-btn:hover {
   background: transparent;
 }
 
+/*Styling for Add button's extra features when hovering*/
 .add-btn:hover #circle {
   height: 100%;
   width: 100%;
@@ -118,6 +134,7 @@ body::before {
   border-bottom: 2px solid var(--light-color);
 }
 
+/*Styling unordered list*/
 ul {
   display: block;
   list-style: none;
@@ -125,6 +142,7 @@ ul {
 
 }
 
+/*Styling elements of unordered list*/
 ul li {
   height: 4rem;
   cursor: pointer;
@@ -144,10 +162,12 @@ ul li {
   user-select: none;
 }
 
+/*Style the last child element of unordered list*/
 ul li:last-child {
   border-radius: 0 0 10px 10px;
 }
 
+/*Style elements of unordered list when hovered*/
 ul li:hover {
   opacity: 0.8;
 }
