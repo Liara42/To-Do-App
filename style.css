@@ -172,6 +172,7 @@ ul li:hover {
   opacity: 0.8;
 }
 
+/*Style checked list items*/
 ul li.checked {
   background-color: var(--secondary-color);
   color: var(--dark-color);
@@ -179,10 +180,12 @@ ul li.checked {
   border-bottom: solid 0.5px var(--dark-color);
 }
 
+/*Style list items' span element*/
 ul li.checked span {
   color: var(--primary-color);
 }
 
+/*Style checked list items further more*/
 ul li.checked:before {
   content: '';
   position: absolute;
@@ -195,6 +198,7 @@ ul li.checked:before {
   height: 15px;
   width: 7px;
 }
+
 /*Style Delete Button*/
 .delete {
   position: absolute;
@@ -204,28 +208,35 @@ ul li.checked:before {
   color: var(--light-color);
 }
 
+/*Style delete button when hovered*/
 .delete:hover {
   opacity: 0.9;
   z-index: -1;
 }
 
 /*List Loader*/
+/*Style the elements of list loader*/
 .loader{
   position: fixed;
   top:55%;
   left:47%;
 }
 
+/*Style the elements of list loader*/
 .lds-roller {
   display: inline-block;
   position: relative;
   width: 80px;
   height: 80px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div {
   animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   transform-origin: 40px 40px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:after {
   content: " ";
   display: block;
@@ -236,62 +247,96 @@ ul li.checked:before {
   background: #fcf;
   margin: -4px 0 0 -4px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(1) {
   animation-delay: -0.036s;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(1):after {
   top: 63px;
   left: 63px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(2) {
   animation-delay: -0.072s;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(2):after {
   top: 68px;
   left: 56px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(3) {
   animation-delay: -0.108s;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(3):after {
   top: 71px;
   left: 48px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(4) {
   animation-delay: -0.144s;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(4):after {
   top: 72px;
   left: 40px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(5) {
   animation-delay: -0.18s;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(5):after {
   top: 71px;
   left: 32px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(6) {
   animation-delay: -0.216s;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(6):after {
   top: 68px;
   left: 24px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(7) {
   animation-delay: -0.252s;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(7):after {
   top: 63px;
   left: 17px;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(8) {
   animation-delay: -0.288s;
 }
+
+/*Style the elements of list loader*/
 .lds-roller div:nth-child(8):after {
   top: 56px;
   left: 12px;
 }
+
+/*Style the elements of list loader*/
 @keyframes lds-roller {
   0% {
     transform: rotate(0deg);
