@@ -136,8 +136,20 @@ function checkedElement() {
 
 //Persist Data
 function persistItems() {
-  //Save Data to Local Storage
-  /*localStorage.setItem("items", JSON.stringify(list.listItems));*/
+  fetch('http://localhost:3000/todos', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
 }
 
 //Add REST API and AXIOS
