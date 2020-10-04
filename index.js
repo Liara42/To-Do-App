@@ -134,7 +134,8 @@ function checkedElement() {
   }
 }
 
-//Persist Data
+//Uploading JSON data
+//const data = { username: 'example' };
 function persistItems() {
   fetch('http://localhost:3000/todos', {
     method: 'POST',
