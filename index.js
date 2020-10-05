@@ -42,6 +42,7 @@ function renderList(list) {
   //In the beginning, list is empty
   let myNode = document.getElementById('uList');
   myNode.innerHTML = '';
+
   //Create element for every list item
   for (let i = 0; i < list.length; i++) {
     //For every item, elements li and span are created, and 'x' (\uOOD7) sign for delete is added
@@ -83,6 +84,7 @@ function addNewElement() {
   } else {
     let index = list.listItems.length;
     let id = list.listItems[index - 1].id;
+
     list.addNewItem(inputElement, id + 1);
     renderList(list.listItems);
     //Persist Data
@@ -117,7 +119,7 @@ function deleteElement() {
       list.deleteItem(i);
       renderList(list.listItems);
       //Persist Data
-      persistItems();
+      persistDeletion(i);
     });
   }
 }
@@ -137,7 +139,7 @@ function checkedElement() {
   }
 }
 
-//Uploading JSON data
+//Persist Adding
 function persistItems(index) {
   fetch('http://localhost:3000/todos', {
     method: 'POST',
@@ -150,8 +152,24 @@ function persistItems(index) {
       response.json();
     })
     .then((data) => {
-      console.log(list.listItems[index], index);
       console.log(data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+//Persist Deletion
+function persistDeletion(index) {
+  fetch('http://localhost:3000/todos', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(list.listItems[index]),
+  })
+    .then((response) => {
+      response.json();
     })
     .catch((error) => {
       console.error('Error:', error);
