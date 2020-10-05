@@ -6,9 +6,10 @@ class ToDo {
   }
 
   //Add new list item
-  addNewItem(nameStr) {
+  addNewItem(nameStr, index) {
     //List item object containing name and check status of item
     let listItem = {
+      id: index,
       name: nameStr,
       check: 0,
     };
@@ -80,7 +81,8 @@ function addNewElement() {
     alert('You must enter something');
     //If not, add new item to the list, and render the list
   } else {
-    list.addNewItem(inputElement);
+    let index = list.listItems[list.listItems.lenght - 1].id;
+    list.addNewItem(inputElement, index + 1);
     renderList(list.listItems);
     //Persist Data
     persistItems();
@@ -135,7 +137,6 @@ function checkedElement() {
 }
 
 //Uploading JSON data
-
 function persistItems() {
   fetch('http://localhost:3000/todos', {
     method: 'POST',
@@ -146,32 +147,36 @@ function persistItems() {
   })
     .then((response) => {
       response.json();
-      console.log('trooper');
     })
     .then((data) => {
-      console.log(data, 'pooper');
+      console.log(data);
     })
     .catch((error) => {
       console.error('Error:', error);
     });
 }
 
-//Add REST API and AXIOS
-window.addEventListener('load', (event) => {
+//Get JSON data
+function getItems() {
   fetch('http://localhost:3000/todos')
     //Check if there is Stored Data on Server
     .then((response) => response.json())
     .then((result) => {
-      console.log(result);
       list.listItems = result;
+      console.log(list.listItems);
 
       renderList(list.listItems);
       addingListener();
-
-      let loader = document.getElementById('loader');
-      loader.style.display = 'none';
     })
     .catch((error) => {
       console.error(error);
     });
+}
+
+//Add REST API and AXIOS
+window.addEventListener('load', (event) => {
+  getItems();
+
+  let loader = document.getElementById('loader');
+  loader.style.display = 'none';
 });
