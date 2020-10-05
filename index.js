@@ -116,10 +116,12 @@ function deleteElement() {
   for (let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener('click', function (event) {
       event.stopPropagation();
+      let id = list.listItems[i].id;
+
       list.deleteItem(i);
       renderList(list.listItems);
       //Persist Data
-      persistDeletion(i);
+      persistDeletion(id);
     });
   }
 }
@@ -160,16 +162,16 @@ function persistItems(index) {
 }
 
 //Persist Deletion
-function persistDeletion(index) {
-  fetch('http://localhost:3000/todos', {
+function persistDeletion(id) {
+  fetch(`http://localhost:3000/todos/${id}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(list.listItems[index]),
   })
     .then((response) => {
       response.json();
+      console.log(id);
     })
     .catch((error) => {
       console.error('Error:', error);
