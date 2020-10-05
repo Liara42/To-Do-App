@@ -83,7 +83,13 @@ function addNewElement() {
     //If not, add new item to the list, and render the list
   } else {
     let index = list.listItems.length;
-    let id = list.listItems[index - 1].id;
+    let id;
+
+    if (index === 0) {
+      id = 1;
+    } else {
+      id = list.listItems[index - 1].id;
+    }
 
     list.addNewItem(inputElement, id + 1);
     renderList(list.listItems);
@@ -133,10 +139,12 @@ function checkedElement() {
   //Go through all li elements, toggle their 'check' index on click event, and render the list
   for (let i = 0; i < checkElement.length; i++) {
     checkElement[i].onclick = function () {
+      let id = list.listItems[i].id;
+
       list.checkItem(i);
       renderList(list.listItems);
       //Persist Data
-      persistItems();
+      persistChecking(i, id);
     };
   }
 }
@@ -153,9 +161,6 @@ function persistItems(index) {
     .then((response) => {
       response.json();
     })
-    .then((data) => {
-      console.log(data);
-    })
     .catch((error) => {
       console.error('Error:', error);
     });
@@ -171,7 +176,23 @@ function persistDeletion(id) {
   })
     .then((response) => {
       response.json();
-      console.log(id);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+//Persist Checking
+function persistChecking(index, id) {
+  fetch(`http://localhost:3000/todos/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(list.listItems[index]),
+  })
+    .then((response) => {
+      response.json();
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -185,8 +206,6 @@ function getItems() {
     .then((response) => response.json())
     .then((result) => {
       list.listItems = result;
-      console.log(list.listItems);
-
       renderList(list.listItems);
       addingListener();
     })
