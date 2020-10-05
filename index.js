@@ -81,9 +81,9 @@ function addNewElement() {
     alert('You must enter something');
     //If not, add new item to the list, and render the list
   } else {
-    let index = list.listItems.length - 1;
-    let id = list.listItems[index].id;
-    list.addNewItem(inputElement, index + 1);
+    let index = list.listItems.length;
+    let id = list.listItems[index - 1].id;
+    list.addNewItem(inputElement, id + 1);
     renderList(list.listItems);
     //Persist Data
     persistItems(index);
@@ -150,6 +150,7 @@ function persistItems(index) {
       response.json();
     })
     .then((data) => {
+      console.log(list.listItems[index], index);
       console.log(data);
     })
     .catch((error) => {
