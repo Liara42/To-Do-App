@@ -81,11 +81,12 @@ function addNewElement() {
     alert('You must enter something');
     //If not, add new item to the list, and render the list
   } else {
-    let index = list.listItems[list.listItems.lenght - 1].id;
+    let index = list.listItems.length - 1;
+    let id = list.listItems[index].id;
     list.addNewItem(inputElement, index + 1);
     renderList(list.listItems);
     //Persist Data
-    persistItems();
+    persistItems(index);
   }
 }
 
@@ -137,13 +138,13 @@ function checkedElement() {
 }
 
 //Uploading JSON data
-function persistItems() {
+function persistItems(index) {
   fetch('http://localhost:3000/todos', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(list.listItems),
+    body: JSON.stringify(list.listItems[index]),
   })
     .then((response) => {
       response.json();
