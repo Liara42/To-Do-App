@@ -135,18 +135,21 @@ function checkedElement() {
 }
 
 //Uploading JSON data
-//const data = { username: 'example' };
+
 function persistItems() {
   fetch('http://localhost:3000/todos', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(list.listItems),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      response.json();
+      console.log('trooper');
+    })
     .then((data) => {
-      console.log('Success:', data);
+      console.log(data, 'pooper');
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -161,7 +164,9 @@ window.addEventListener('load', (event) => {
     .then((result) => {
       console.log(result);
       list.listItems = result;
+
       renderList(list.listItems);
+      addingListener();
 
       let loader = document.getElementById('loader');
       loader.style.display = 'none';
@@ -169,9 +174,4 @@ window.addEventListener('load', (event) => {
     .catch((error) => {
       console.error(error);
     });
-
-  //Add function for adding new items
-  /*addingListener();*/
-
-  //Should I Wait for 2s to execute all of this
 });
